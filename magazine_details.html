@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .full-magazine {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+      }
+
+      .full-magazine img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+    </style>
+    <title>Magazine Details Viewer</title>
+  </head>
+  <body>
+    <div class="full-magazine" id="fullMagazine">
+      <h1 id="magazineTitle">Magazine Details</h1>
+      <div id="magazineContent"></div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const fullMagazineContainer = document.getElementById("fullMagazine");
+        const magazineContentContainer =
+          document.getElementById("magazineContent");
+
+        // Get magazine ID from query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const magazineId = urlParams.get("id");
+
+        async function fetchFullMagazine() {
+          try {
+            const response = await fetch(
+              `http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/magazine/magazine/${magazineId}`
+            );
+            const fullMagazineData = await response.json();
+            console.log(fullMagazineData);
+            if (fullMagazineData && fullMagazineData._id) {
+              renderFullMagazine(fullMagazineData);
+            } else {
+              console.error("Error fetching full magazine data.");
+            }
+          } catch (error) {
+            console.error("Error fetching full magazine data:", error);
+          }
+        }
+
+        function renderFullMagazine(magazine) {
+          const titleElement = document.getElementById("magazineTitle");
+          titleElement.textContent = magazine.MagazineTitle;
+
+          const descriptionElement = document.createElement("p");
+          descriptionElement.textContent = magazine.description;
+
+          const bannerImage = document.createElement("img");
+          bannerImage.src = magazine.Banner_location;
+          bannerImage.alt = magazine.MagazineTitle;
+
+          const pdfLink = document.createElement("a");
+          pdfLink.href = magazine.pdf;
+          pdfLink.textContent = "View PDF";
+
+          magazineContentContainer.appendChild(bannerImage);
+          magazineContentContainer.appendChild(descriptionElement);
+          magazineContentContainer.appendChild(pdfLink);
+        }
+
+        // Fetch full magazine data and render it
+        fetchFullMagazine();
+      });
+    </script>
+  </body>
+</html>
