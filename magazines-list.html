@@ -1,107 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      body {
-        font-family: "Arial", sans-serif;
-        margin: 0;
-        padding: 20px;
-      }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
 
-      .article-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
-      }
+        .magazine-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
 
-      .article {
-        max-width: 300px;
-        border: 1px solid #ccc;
-        padding: 10px;
-        cursor: pointer;
-        transition: transform 0.2s ease-in-out;
-      }
+        .magazine {
+            max-width: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
 
-      .article:hover {
-        transform: scale(1.05);
-      }
+        .magazine:hover {
+            transform: scale(1.05);
+        }
 
-      .article img {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 10px;
-      }
+        .magazine img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
 
-      .article h2 {
-        margin-bottom: 10px;
-      }
+        .magazine h2 {
+            margin-bottom: 10px;
+        }
     </style>
-    <title>Article Viewer</title>
-  </head>
-  <body>
-    <div class="article-container" id="articleContainer"></div>
+    <title>Magazine Viewer</title>
+</head>
+<body>
+    <div class="magazine-container" id="magazineContainer">
+    </div>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const articleContainer = document.getElementById("articleContainer");
+        document.addEventListener("DOMContentLoaded", function () {
+            const magazineContainer = document.getElementById("magazineContainer");
 
-        async function fetchArticles() {
-          try {
-            const response = await fetch(
-              "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/article/getall"
-            );
-            const data = await response.json();
+            async function fetchMagazines() {
+                try {
+                    const response = await fetch("http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/magazine/getall");
+                    const data = await response.json();
 
-            if (Array.isArray(data) && data.length > 0) {
-              renderArticles(data);
-            } else {
-              console.error("No articles found.");
+                    if (Array.isArray(data) && data.length > 0) {
+                        renderMagazines(data);
+                    } else {
+                        console.error("No magazines found.");
+                    }
+                } catch (error) {
+                    console.error("Error fetching magazine data:", error);
+                }
             }
-          } catch (error) {
-            console.error("Error fetching article data:", error);
-          }
-        }
 
-        function renderArticles(articles) {
-          articleContainer.innerHTML = ""; // Clear previous content
+            function renderMagazines(magazines) {
+                magazineContainer.innerHTML = ""; // Clear previous content
 
-          articles.forEach((article, index) => {
-            const bannerImage = document.createElement("img");
-            bannerImage.src = article.Banner_location;
-            bannerImage.alt = article.ArticleTitle;
+                magazines.forEach((magazine, index) => {
+                    const magazineDiv = document.createElement("div");
+                    magazineDiv.classList.add("magazine");
 
-            const titleElement = document.createElement("h2");
-            titleElement.textContent = article.ArticleTitle;
+                    const titleElement = document.createElement("h2");
+                    titleElement.textContent = magazine.MagazineTitle;
 
-            const articleDiv = document.createElement("div");
-            articleDiv.classList.add("article");
+                    const descriptionElement = document.createElement("p");
+                    descriptionElement.textContent = magazine.description;
 
-            // const contentElement = document.createElement("p");
-            // contentElement.textContent = article.content;
+                    const bannerImage = document.createElement("img");
+                    bannerImage.src = magazine.Banner_location;
+                    bannerImage.alt = magazine.MagazineTitle;
 
-            articleDiv.appendChild(titleElement);
-            articleDiv.appendChild(bannerImage);
-            // articleDiv.appendChild(contentElement);
+                    magazineDiv.appendChild(titleElement);
+                    magazineDiv.appendChild(bannerImage);
+                    magazineDiv.appendChild(descriptionElement);
 
-            // Add click event listener to redirect to the full article
-            articleDiv.addEventListener("click", function () {
-              redirectToFullArticle(article._id);
-            });
+                    // Add click event listener to redirect to the magazine details
+                    magazineDiv.addEventListener("click", function () {
+                        redirectToMagazineDetails(magazine._id);
+                    });
 
-            articleContainer.appendChild(articleDiv);
-          });
-        }
+                    magazineContainer.appendChild(magazineDiv);
+                });
+            }
 
-        function redirectToFullArticle(articleId) {
-          // Redirect to the full article view
-          window.location.href = `full_article.html?id=${articleId}`;
-        }
+            function redirectToMagazineDetails(magazineId) {
+                // Redirect to the magazine details view
+                window.location.href = `magazine_details.html?id=${magazineId}`;
+            }
 
-        // Fetch articles from the API and render them
-        fetchArticles();
-      });
+            // Fetch magazines from the API and render them
+            fetchMagazines();
+        });
     </script>
-  </body>
+</body>
 </html>
