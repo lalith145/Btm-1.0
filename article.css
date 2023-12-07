@@ -1,0 +1,44 @@
+/* Style for the article container */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style for the container */
+.content-container {
+    border: 2px solid #ddd;
+    /* Border style */
+    /* padding: 20px; Add padding for better visual */
+    max-width: 400px;
+    /* Set a maximum width for the content container */
+    margin: 20px auto;
+    border-radius: 20px;
+    /* Center the container and add margin */
+}
+
+/* Style for the image */
+.content-container img {
+    width: 100%;
+    /* Make the image cover up to the container border */
+   height: 200px;
+    border-top-left-radius: 20px;
+    /* Apply border-radius only to the top-left corner */
+    border-top-right-radius: 20px;
+}
+
+/* Style for paragraphs */
+.content-container p {
+    color: #333;
+    /* Text color */
+    margin-bottom: 10px;
+    padding-left: 10px;
+    /* Add spacing between paragraphs */
+}
+
+
+/* Style for the title text in red */
+.content-container .title {
+    color: red;
+    padding-left: 10px;
+    /* Set the text color to red */
+}

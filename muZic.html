@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .song-container {
+        text-align: center;
+      }
+
+      .controls button {
+        margin: 10px;
+        padding: 5px 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+    <title>Song Player</title>
+  </head>
+  <body>
+    <div class="song-container">
+      <h1>Song Player</h1>
+      <p id="songCount">Song 1 of 1</p>
+      <audio id="audio" controls>
+        Your browser does not support the audio element.
+      </audio>
+      <div class="controls">
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn">Next</button>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const audio = document.getElementById("audio");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const songCount = document.getElementById("songCount");
+
+        let currentSongIndex = 0;
+        let songs = [];
+
+        function loadSong(song) {
+          audio.src = song.Audio_location;
+          audio.play(); // Start playing the new song
+          updateSongCount();
+        }
+
+        function updateSongCount() {
+          songCount.textContent = `Song ${currentSongIndex + 1} of ${
+            songs.length
+          }`;
+        }
+
+        function playPreviousSong() {
+          currentSongIndex =
+            (currentSongIndex - 1 + songs.length) % songs.length;
+          loadSong(songs[currentSongIndex]);
+        }
+
+        function playNextSong() {
+          currentSongIndex = (currentSongIndex + 1) % songs.length;
+          loadSong(songs[currentSongIndex]);
+        }
+
+        async function fetchSongData() {
+          try {
+            const response = await fetch(
+              "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/allsongs"
+            );
+            const data = await response.json();
+
+            // Assuming the API response structure you provided
+            if (data.success === "Fetched songs") {
+              songs = data.getallsongs;
+              loadSong(songs[currentSongIndex]);
+            } else {
+              console.error("Error fetching songs:", data.message);
+            }
+          } catch (error) {
+            console.error("Error fetching song data:", error);
+          }
+        }
+
+        prevBtn.addEventListener("click", playPreviousSong);
+        nextBtn.addEventListener("click", playNextSong);
+
+        // Fetch song data from the API
+        fetchSongData();
+      });
+    </script>
+  </body>
+</html>

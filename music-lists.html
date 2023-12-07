@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music-lists</title>
+  <link rel="stylesheet" href="music-lists.css">
+</head>
+
+<body>
+
+    
+
+    <a href="index.html"><div class="arrow">
+
+        <h2><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  width="30px" height="30px"><path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path></svg>Music Lists</h2>
+        
+            </div></a>
+
+            <div id="musicList">
+
+            </div>
+
+           <!-- {
+            getallsongs &&
+
+            getallsongs.map((eachItem)=>
+            <div class="paragraph-container">
+                <div class="paragraph-with-image">
+                    <div class="image">
+                        <div><img class="blind" src="assets/images/music-lists.jpg" alt="Image 2"></div>
+                        <div class="paragraph-text">
+                            <h3>Blinding Lights</h3>
+                            <p>View Lyrics <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" class="icon" width="17px"
+                                    height="20px">
+                                    <path
+                                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                                    </path>
+                                </svg></p>
+        
+                        </div>
+                    </div>
+                    <div class="play">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" width="30px" height="30px">
+                            <path
+                                d="M7.75194 5.43872L18.2596 11.5682C18.4981 11.7073 18.5787 12.0135 18.4396 12.252C18.3961 12.3265 18.3341 12.3885 18.2596 12.432L7.75194 18.5615C7.51341 18.7006 7.20725 18.62 7.06811 18.3815C7.0235 18.305 7 18.2181 7 18.1296V5.87061C7 5.59446 7.22386 5.37061 7.5 5.37061C7.58853 5.37061 7.67547 5.39411 7.75194 5.43872Z">
+                            </path>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" width="30px" height="30px">
+                            <path
+                                d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM14 9H19L12 16L5 9H10V3H14V9Z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            )
+           } -->
+ 
+
+    
+
+<script>
+    // Fetch data from the API
+    fetch('http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/getall')
+        .then(response => response.json())
+        .then(data => {
+            // Get the container element in your HTML where you want to append the data
+            const musicListContainer = document.getElementById('musicList');
+
+            // Loop through the songs and append them to the container
+            data.getallsongs.forEach(song => {
+                // Create HTML elements for each song
+                const songElement = document.createElement('div');
+                songElement.innerHTML = `
+
+
+
+
+
+                
+
+                <div class="paragraph-container">
+
+                <div class="paragraph-with-image">
+                    <div class="image">
+                        <div><img class="blind" src="${song.Banner_location}" alt="Image 2"></div>
+                        <div class="paragraph-text">
+                            <h3>${song.Musictitle}</h3>
+                            <p>View Lyrics <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" class="icon" width="17px"
+                                    height="20px">
+                                    <path
+                                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                                    </path>
+                                </svg></p>
+
+                        </div>
+                    </div>
+                    <div class="play">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" width="30px" height="30px">
+                            <path
+                                d="M7.75194 5.43872L18.2596 11.5682C18.4981 11.7073 18.5787 12.0135 18.4396 12.252C18.3961 12.3265 18.3341 12.3885 18.2596 12.432L7.75194 18.5615C7.51341 18.7006 7.20725 18.62 7.06811 18.3815C7.0235 18.305 7 18.2181 7 18.1296V5.87061C7 5.59446 7.22386 5.37061 7.5 5.37061C7.58853 5.37061 7.67547 5.39411 7.75194 5.43872Z">
+                            </path>
+                        </svg>
+                        <s
+                        vg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" width="30px" height="30px">
+                            <path
+                                d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM14 9H19L12 16L5 9H10V3H14V9Z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+                </div>
+                `;
+
+                // Append the song element to the container
+                musicListContainer.appendChild(songElement);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+
+       
+
+
+
+
+</script>
+
+
+<!-- <div class="paragraph-with-image">
+                    
+                    <h2>${song.Musictitle}</h2>
+                    <p>Artist: ${song.artist}</p>
+                    <p>Album: ${song.AlbumName}</p>
+                    <audio controls>
+                        <source src="${song.Audio_location}" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <img src="${song.Banner_location}" alt="Banner">
+                    <a href="${song.download_file}" download>Download</a>
+                    <hr>
+
+                    <div> -->
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+body{
+   
+    
+    
+    /* position: relative;
+    left: 40%; */
+}
+
+.header{
+    margin-top: 10%;
+}
+#backButton{
+   
+     /* position: relative;
+    left: 3%;  */
+    height: 6%;
+    width: 8%;
+    float: left;
+    margin-left: 3%;    
+    margin-top:-1%; 
+}
+#userProfileHeading{
+    /* position: relative;
+    left: 5%;
+    top: 5px; */
+    font-family:sans-serif;
+    font-size: larger;
+    font-weight: bold;
+    margin-left: 14%;
+    margin-top: 0%;
+    
+}
+
+#firstMagzine{
+    background-image: url("./MagzinesMedia/1.jpg");
+    background-size: contain; 
+    border-radius: 5%;
+    /* height: 18%;
+    width: 90%; 
+    margin-left: 5%; */
+}
+
+#mainConent{
+    color: white;
+    /* position: relative;
+    top: 50%; */
+}
+
+/* #content1{
+    margin-left: 2%;
+    line-height: 70%;
+    height: 110%;
+    width: 70%;
+    margin-bottom: 30px;
+} */
+
+#paraContent{
+    /* margin-top: 13%; */
+    color: white;
+    /* font-size: xx-small;
+    position: relative;
+    top: 30%; */
+}
+
+#download{
+   height: 50px;
+   border-radius: 100%;
+   text-align: right;
+   margin-left: 85%;
+   position: relative;
+   bottom: 50%;
+}
+
+
