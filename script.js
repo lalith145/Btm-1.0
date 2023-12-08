@@ -87,61 +87,121 @@ document.addEventListener("DOMContentLoaded", function () {
 // Articles
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Fetch data from the API using HTTPS
-  fetch(
-    "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/article/getall"
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      // Process the data and create article cards
-      const articleContainer =
-        document.getElementById("articleContainer");
+  const articleContainer = document.getElementById("articleContainer");
 
-      data.forEach((article) => {
-        const articleCard = document.createElement("div");
-        articleCard.className = "articles-card col-6";
-        articleCard.innerHTML = `
-        <img src="${article.Banner_location}" alt="${article.ArticleTitle}" />
-        <h5>${article.ArticleTitle}</h5>
-        <p>${article.content}</p>
-      `;
-        articleContainer.appendChild(articleCard);
+  async function fetchArticles() {
+    try {
+      const response = await fetch(
+        "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/article/getall"
+      );
+      const data = await response.json();
+
+      if (Array.isArray(data) && data.length > 0) {
+        renderArticles(data);
+      } else {
+        console.error("No articles found.");
+      }
+    } catch (error) {
+      console.error("Error fetching article data:", error);
+    }
+  }
+
+  function renderArticles(articles) {
+    articleContainer.innerHTML = ""; // Clear previous content
+
+    articles.forEach((article, index) => {
+      const bannerImage = document.createElement("img");
+      bannerImage.src = article.Banner_location;
+      bannerImage.alt = article.ArticleTitle;
+
+      const titleElement = document.createElement("h2");
+      titleElement.textContent = article.ArticleTitle;
+
+      const articleDiv = document.createElement("div");
+      articleDiv.classList.add("article");
+
+      const contentElement = document.createElement("p");
+      contentElement.textContent = article.content;
+
+      articleDiv.appendChild(titleElement);
+      articleDiv.appendChild(bannerImage);
+      articleDiv.appendChild(contentElement);
+
+      // Add click event listener to redirect to the full article
+      articleDiv.addEventListener("click", function () {
+        redirectToFullArticle(article._id);
       });
-    })
-    .catch((error) =>
-      console.error("Error fetching article data:", error)
-    );
+
+      articleContainer.appendChild(articleDiv);
+    });
+  }
+
+  function redirectToFullArticle(articleId) {
+    // Redirect to the full article view
+    window.location.href = `full_article.html?id=${articleId}`;
+  }
+
+  // Fetch articles from the API and render them
+  fetchArticles();
 });
 
 // Magazines
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Fetch data from the API using HTTPS
-  fetch(
-    "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/magazine/getall"
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      // Process the data and create magazine cards
-      const magazineContainer =
-        document.getElementById("magazineContainer");
+  const magazineContainer = document.getElementById("magazineContainer");
 
-      data.forEach((magazine) => {
-        const magazineCard = document.createElement("div");
-        magazineCard.className = "magazines-wrapper mb-3";
-        magazineCard.innerHTML = `
-        <img src="${magazine.Banner_location}" alt="${magazine.MagazineTitle}" />
-        <div>
-          <h5>${magazine.MagazineTitle}</h5>
-          <p>Open in PDF</p>
-        </div>
-      `;
-        magazineContainer.appendChild(magazineCard);
+  async function fetchMagazines() {
+      try {
+          const response = await fetch("http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/magazine/getall");
+          const data = await response.json();
+
+          if (Array.isArray(data) && data.length > 0) {
+              renderMagazines(data);
+          } else {
+              console.error("No magazines found.");
+          }
+      } catch (error) {
+          console.error("Error fetching magazine data:", error);
+      }
+  }
+
+  function renderMagazines(magazines) {
+      magazineContainer.innerHTML = ""; // Clear previous content
+
+      magazines.forEach((magazine, index) => {
+          const magazineDiv = document.createElement("div");
+          magazineDiv.classList.add("magazine");
+
+          const titleElement = document.createElement("h2");
+          titleElement.textContent = magazine.MagazineTitle;
+
+          const descriptionElement = document.createElement("p");
+          descriptionElement.textContent = magazine.description;
+
+          const bannerImage = document.createElement("img");
+          bannerImage.src = magazine.Banner_location;
+          bannerImage.alt = magazine.MagazineTitle;
+
+          magazineDiv.appendChild(titleElement);
+          magazineDiv.appendChild(bannerImage);
+          magazineDiv.appendChild(descriptionElement);
+
+          // Add click event listener to redirect to the magazine details
+          magazineDiv.addEventListener("click", function () {
+              redirectToMagazineDetails(magazine._id);
+          });
+
+          magazineContainer.appendChild(magazineDiv);
       });
-    })
-    .catch((error) =>
-      console.error("Error fetching magazine data:", error)
-    );
+  }
+
+  function redirectToMagazineDetails(magazineId) {
+      // Redirect to the magazine details view
+      window.location.href = `magazine_details.html?id=${magazineId}`;
+  }
+
+  // Fetch magazines from the API and render them
+  fetchMagazines();
 });
 
 // Videos

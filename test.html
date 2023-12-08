@@ -269,13 +269,13 @@
     }
 
     function updateSongDetails(song) {
-        trackArt.style.backgroundImage = `url('${song.Banner_location}')`;
+        trackArt.style.backgroundImage = url('${song.Banner_location}');
         trackName.textContent = song.Musictitle;
         trackArtist.textContent = song.artist;
     }
 
     function updateSongCount() {
-        nowPlaying.textContent = `PLAYING ${currentSongIndex + 1} OF ${songs.length}`;
+        nowPlaying.textContent = PLAYING ${currentSongIndex + 1} OF ${songs.length};
     }
 
     function playpauseTrack() {

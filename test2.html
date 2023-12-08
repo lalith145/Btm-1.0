@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Your existing head content... -->
+  </head>
+
+  <body>
+    <header style="z-index: 999">
+      <!-- Your existing header content... -->
+    </header>
+
+    <div style="display: flex; justify-content: center">
+      <div style="max-width: 500px">
+        <div class="slider-container">
+          <div class="slider">
+            <!-- Banner slides will be added dynamically -->
+          </div>
+        </div>
+
+        <div class="content-container" style="overflow-x: auto;">
+          <div class="music-wrapper">
+            <h2>Music</h2>
+            <a href="music-lists.html">
+              <p>View All</p>
+            </a>
+          </div>
+
+          <div
+            class="row d-flex flex-row"
+            id="musicRow"
+            style="display: flex; gap: 20px;"
+          >
+            <!-- Music items will be dynamically added here -->
+          </div>
+
+          <div class="music-wrapper">
+            <h2>Articles</h2>
+            <a href="article.html">
+              <p>View All</p>
+            </a>
+          </div>
+          <div
+            class="container"
+            style="display: flex; gap: 20px;"
+            id="articleContainer"
+          >
+            <!-- Articles will be dynamically added here -->
+          </div>
+
+          <div class="music-wrapper">
+            <h2>Magazines</h2>
+            <a href="magazines-list.html">
+              <p>View All</p>
+            </a>
+          </div>
+          <div
+            class="magazines-wrapper mb-3"
+            id="magazineContainer"
+            style="display: flex; gap: 20px;"
+          >
+            <!-- Magazines will be dynamically added here -->
+          </div>
+
+          <div class="music-wrapper">
+            <h2>Videos</h2>
+            <a href="videos.html">
+              <p>View All</p>
+            </a>
+          </div>
+          <div
+            class="container"
+            style="display: flex; gap: 20px;"
+            id="videoContainer"
+          >
+            <!-- Videos will be dynamically added here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
