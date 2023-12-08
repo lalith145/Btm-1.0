@@ -1,63 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Add your existing head content here -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="music-lists.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <title>BTM app</title>
+  <script src="script.js"></script>
 </head>
 
 <body>
-    <div class="preloader-wrapper">
-        <img src="assets/images/logo/bible_trust_logo_final_1[1].png" alt="Logo" class="logo-placeholder">
+
+  <div class="preloader-wrapper">
+    <img src="assets/images/logo/bible_trust_logo_final_1[1].png" alt="Logo" class="logo-placeholder">
+  </div>
+
+  <header style="z-index: 999">
+    <div class="navbar">
+      <div class="settings" onclick="toggleSidebar()" style="padding-left: 10px">
+        <i class="ri-menu-2-line" style="color: black"></i>
+      </div>
+      <div class="logo" style="padding-right: 10px">
+        <i class="ri-search-line" style="color: black"></i>
+      </div>
     </div>
 
-    <header style="z-index: 999">
-        <div class="navbar">
-            <div class="settings" onclick="toggleSidebar()" style="padding-left: 10px">
-                <i class="ri-menu-2-line" style="color: black"></i>
-            </div>
-            <div class="logo" style="padding-right: 10px">
-                <i class="ri-search-line" style="color: black" onclick="toggleSearch()"></i>
-            </div>
+    <div class="sidebar" id="sidebar">
+      <div class="close" onclick="toggleSidebar()" style="color: black">
+        <i class="ri-close-line" style="color: black"></i>
+      </div>
+      <ul>
+        <a href="music-lists.html">
+          <li>Music</li>
+        </a>
+        <a href="article.html">
+          <li>Articles</li>
+        </a>
+        <a href="videos.html">
+          <li>Video</li>
+        </a>
+        <li>Messages</li>
+        <a href="magazines-list.html">
+          <li>Magazines</li>
+        </a>
+      </ul>
+    </div>
+  </header>
+
+  <a href="index.html">
+    <div class="arrow">
+      <h2><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30px" height="30px">
+          <path
+            d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z">
+          </path>
+        </svg>Music Lists
+      </h2>
+    </div>
+  </a>
+
+  <div id="musicList"></div>
+
+  <div class="paragraph-container">
+    <div class="paragraph-with-image">
+      <div class="image">
+        <div><img class="blind" src="" alt="Image 2"></div>
+        <div class="paragraph-text">
+          <h3>${song.Musictitle}</h3>
+          <p>View Lyrics <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" class="icon"
+              width="17px" height="20px">
+              <path
+                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+              </path>
+            </svg></p>
         </div>
+      </div>
+      <div class="playpause-track" onclick="toggleAudio('${song.Audio_location}')">
+        <i class="fa fa-play-circle fa-5x"></i>
+      </div>
+    </div>
+  </div>
+  <audio id="audioPlayer" src="path/to/your/audiofile.mp3"></audio>
 
-        <!-- Add the search bar -->
-        <div class="search-bar" id="searchBar" style="display: none">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button onclick="performSearch()">Search</button>
-        </div>
+  <script>
+    function navigateToPage(page) {
+      switch (page) {
+        case 'index':
+          window.location.href = 'index.html';
+          break;
+        case 'music':
+          window.location.href = 'music-lists.html';
+          break;
+        case 'magazines':
+          window.location.href = 'magazines-lists.html';
+          break;
+        case 'articles':
+          window.location.href = 'article.html';
+          break;
+        case 'videos':
+          window.location.href = 'videos.html';
+          break;
+        default:
+          console.log("Unknown page: " + page);
+      }
+    }
 
-        <div class="sidebar" id="sidebar">
-            <!-- Your existing sidebar content -->
-        </div>
-    </header>
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(function () {
+        document.querySelector(".preloader-wrapper").style.display = "none";
+        document.querySelector(".content").style.display = "block";
+      }, 2000); // Simulating a 2-second loading time
+    });
 
-    <!-- Your existing content -->
+    // Fetch data from the API
+    fetch('http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/allsongs')
+      .then(response => response.json())
+      .then(data => {
+        // Get the container element in your HTML where you want to append the data
+        const musicListContainer = document.getElementById('musicList');
 
-    <script>
-        function toggleSearch() {
-            const searchBar = document.getElementById('searchBar');
-            searchBar.style.display = (searchBar.style.display === 'none' || searchBar.style.display === '') ? 'flex' : 'none';
-        }
+        // Loop through the songs and append them to the container
+        data.getallsongs.forEach(song => {
+          // Create HTML elements for each song
+          const songElement = document.createElement('div');
+          songElement.innerHTML = `
+                <div class="paragraph-container">
+                <div class="paragraph-with-image">
+                    <div class="image">
+                        <div><img class="blind" src="${song.Banner_location}" alt="Image 2"></div>
+                        <div class="paragraph-text">
+                            <h3>${song.Musictitle}</h3>
+                            <p>View Lyrics <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24"
+                                    class="icon" width="17px"
+                                    height="20px">
+                                    <path
+                                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                                    </path>
+                                </svg></p>
+                        </div>
+                    </div>
+                    <div class="play">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" width="30px" height="30px"
+                             onclick="toggleAudio('${song.Audio_location}')">
+                            <path
+                                    d="M7.75194 5.43872L18.2596 11.5682C18.4981 11.7073 18.5787 12.0135 18.4396 12.252C18.3961 12.3265 18.3341 12.3885 18.2596 12.432L7.75194 18.5615C7.51341 18.7006 7.20725 18.62 7.06811 18.3815C7.0235 18.305 7 18.2181 7 18.1296V5.87061C7 5.59446 7.22386 5.37061 7.5 5.37061C7.58853 5.37061 7.67547 5.39411 7.75194 5.43872Z"></path>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" width="30px" height="30px">
+                            <path d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM14 9H19L12 16L5 9H10V3H14V9Z"></path>
+                        </svg>
+                    </div>
+                </div>
+                </div>
+                `;
 
-        function performSearch() {
-            const searchInput = document.getElementById('searchInput').value;
+          // Append the song element to the container
+          musicListContainer.appendChild(songElement);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
 
-            // Check if the search input is not empty
-            if (searchInput.trim() !== '') {
-                // Make an AJAX request to the search API
-                $.ajax({
-                    url: `http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/search/${encodeURIComponent(searchInput)}`,
-                    method: 'GET',
-                    success: function (data) {
-                        // Handle the search results (you can redirect or display results as needed)
-                        console.log('Search results:', data);
-                    },
-                    error: function (error) {
-                        console.error('Error performing search:', error);
-                    }
-                });
-            }
-        }
-    </script>
+    function toggleAudio(audioLocation) {
+      var audio = document.getElementById('audioPlayer');
+      audio.src = audioLocation;
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+  </script>
+
 </body>
+
 </html>
