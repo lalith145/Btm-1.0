@@ -1,66 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Content Page</title>
-    <link rel="stylesheet" href="article.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
 
-</head>
-<body>
+      .article-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
 
-    <a href="index.html"><div class="arrow">
+      .article {
+        max-width: 300px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+        height: auto;
+      }
 
-        <h2><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  width="30px" height="30px"><path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path></svg><Applet></Applet>Article Lists</h2>
-        
-            </div></a>
+      .article:hover {
+        transform: scale(1.05);
+      }
 
- 
-        <div id="items-container">
+      .article img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
 
-        </div>
-
-
-
+      .article h2 {
+        margin-bottom: 10px;
+      }
+    </style>
+    <title>Article Viewer</title>
+  </head>
+  <body>
+    <div class="article-container" id="articleContainer"></div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const itemsContainer = document.getElementById("items-container");
+        const articleContainer = document.getElementById("articleContainer");
 
-        // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint
-        const apiUrl =
-          "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/article/getall";
+        async function fetchArticles() {
+          try {
+            const response = await fetch(
+              "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/article/getall"
+            );
+            const data = await response.json();
 
-        // Fetch data from the API
-        fetch(apiUrl)
-          .then((response) => response.json())
-          .then((data) => {
-            // Process the data and create HTML elements
-            data.forEach((item) => {
-              const itemElement = document.createElement("div");
-              itemElement.classList.add("item");
-              itemElement.innerHTML = `
+            if (Array.isArray(data) && data.length > 0) {
+              renderArticles(data);
+            } else {
+              console.error("No articles found.");
+            }
+          } catch (error) {
+            console.error("Error fetching article data:", error);
+          }
+        }
 
-                            <div class="content-container">
-                <div>
-                    <img class="image" src="${item.Banner_location}" alt="Description of your image">  
-                </div>
-                <div>
-                    <p>${item.ArticleTitle}</p>
-                <p class="title">${item.content}</p>
-                </div>
-                
-                </div>
+        function renderArticles(articles) {
+          articleContainer.innerHTML = ""; // Clear previous content
 
+          articles.forEach((article, index) => {
+            const bannerImage = document.createElement("img");
+            bannerImage.src = article.Banner_location;
+            bannerImage.alt = article.ArticleTitle;
 
-            `;
-              itemsContainer.appendChild(itemElement);
+            const titleElement = document.createElement("h2");
+            titleElement.textContent = article.ArticleTitle;
+
+            const articleDiv = document.createElement("div");
+            articleDiv.classList.add("article");
+
+            const contentElement = document.createElement("p");
+            contentElement.textContent = article.content;
+
+            articleDiv.appendChild(titleElement);
+            articleDiv.appendChild(bannerImage);
+            articleDiv.appendChild(contentElement);
+
+            // Add click event listener to redirect to the full article
+            articleDiv.addEventListener("click", function () {
+              redirectToFullArticle(article._id);
             });
-          })
-          .catch((error) => {
-            console.error("Error fetching API data:", error);
+
+            articleContainer.appendChild(articleDiv);
           });
+        }
+
+        function redirectToFullArticle(articleId) {
+          // Redirect to the full article view
+          window.location.href = `full_article.html?id=${articleId}`;
+        }
+
+        // Fetch articles from the API and render them
+        fetchArticles();
       });
     </script>
+<<<<<<< HEAD
+  </body>
+=======
 
 <script>
   function navigateToPage(page) {
@@ -95,6 +141,5 @@
 </script>
 
 </body>
+>>>>>>> ad1ebe33ed8ab4e52009689405bcdb459a803355
 </html>
-
-
