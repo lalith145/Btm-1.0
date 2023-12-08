@@ -1,61 +1,63 @@
-<!-- ... (your existing HTML code) ... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your existing head content here -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
 
-<script>
-  // Fetch data from the API
-  fetch('http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/allsongs')
-      .then(response => response.json())
-      .then(data => {
-          // Get the container element in your HTML where you want to append the data
-          const musicListContainer = document.getElementById('musicList');
+<body>
+    <div class="preloader-wrapper">
+        <img src="assets/images/logo/bible_trust_logo_final_1[1].png" alt="Logo" class="logo-placeholder">
+    </div>
 
-          // Loop through the songs and append them to the container
-          data.getallsongs.forEach(song => {
-              // Create HTML elements for each song
-              const songElement = document.createElement('div');
-              songElement.innerHTML = `
+    <header style="z-index: 999">
+        <div class="navbar">
+            <div class="settings" onclick="toggleSidebar()" style="padding-left: 10px">
+                <i class="ri-menu-2-line" style="color: black"></i>
+            </div>
+            <div class="logo" style="padding-right: 10px">
+                <i class="ri-search-line" style="color: black" onclick="toggleSearch()"></i>
+            </div>
+        </div>
 
-              <div class="paragraph-container">
-                  <div class="paragraph-with-image">
-                      <div class="image">
-                          <div><img class="blind" src="${song.Banner_location}" alt="Image 2"></div>
-                          <div class="paragraph-text">
-                              <h3>${song.Musictitle}</h3>
-                              <p>View Lyrics <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" class="icon" width="17px" height="20px">
-                                      <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
-                                      </path>
-                                  </svg></p>
-                          </div>
-                      </div>
-                      <div class="play" onclick="playpauseTrack(this)">
-                          <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" width="30px" height="30px">
-                              <path d="M7.75194 5.43872L18.2596 11.5682C18.4981 11.7073 18.5787 12.0135 18.4396 12.252C18.3961 12.3265 18.3341 12.3885 18.2596 12.432L7.75194 18.5615C7.51341 18.7006 7.20725 18.62 7.06811 18.3815C7.0235 18.305 7 18.2181 7 18.1296V5.87061C7 5.59446 7.22386 5.37061 7.5 5.37061C7.58853 5.37061 7.67547 5.39411 7.75194 5.43872Z">
-                              </path>
-                          </svg>
-                          <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" width="30px" height="30px">
-                              <path d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM14 9H19L12 16L5 9H10V3H14V9Z">
-                              </path>
-                          </svg>
-                      </div>
-                  </div>
-              </div>
-              `;
+        <!-- Add the search bar -->
+        <div class="search-bar" id="searchBar" style="display: none">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button onclick="performSearch()">Search</button>
+        </div>
 
-              // Append the song element to the container
-              musicListContainer.appendChild(songElement);
-          });
-      })
-      .catch(error => console.error('Error fetching data:', error));
+        <div class="sidebar" id="sidebar">
+            <!-- Your existing sidebar content -->
+        </div>
+    </header>
 
-  function playpauseTrack(element) {
-      // Toggle between play and pause icons
-      const playIcon = element.querySelector('.play-icon');
-      const pauseIcon = element.querySelector('.pause-icon');
-      playIcon.style.display = playIcon.style.display === 'none' ? 'block' : 'none';
-      pauseIcon.style.display = pauseIcon.style.display === 'none' ? 'block' : 'none';
+    <!-- Your existing content -->
 
-      // Add your logic to play or pause the song here
-      // For example, you can use the song object to get the song URL and play it.
-  }
-</script>
+    <script>
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.style.display = (searchBar.style.display === 'none' || searchBar.style.display === '') ? 'flex' : 'none';
+        }
 
-<!-- ... (your existing HTML code) ... -->
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput').value;
+
+            // Check if the search input is not empty
+            if (searchInput.trim() !== '') {
+                // Make an AJAX request to the search API
+                $.ajax({
+                    url: `http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/search/${encodeURIComponent(searchInput)}`,
+                    method: 'GET',
+                    success: function (data) {
+                        // Handle the search results (you can redirect or display results as needed)
+                        console.log('Search results:', data);
+                    },
+                    error: function (error) {
+                        console.error('Error performing search:', error);
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
