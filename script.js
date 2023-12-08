@@ -123,8 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const contentElement = document.createElement("p");
       contentElement.textContent = article.content;
 
-      articleDiv.appendChild(titleElement);
+      
       articleDiv.appendChild(bannerImage);
+      articleDiv.appendChild(titleElement);
       articleDiv.appendChild(contentElement);
 
       // Add click event listener to redirect to the full article
@@ -182,8 +183,8 @@ document.addEventListener("DOMContentLoaded", function () {
           bannerImage.src = magazine.Banner_location;
           bannerImage.alt = magazine.MagazineTitle;
 
-          magazineDiv.appendChild(titleElement);
           magazineDiv.appendChild(bannerImage);
+          magazineDiv.appendChild(titleElement);
           magazineDiv.appendChild(descriptionElement);
 
           // Add click event listener to redirect to the magazine details
