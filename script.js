@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           data.getallsongs.forEach((song) => {
               const musicCard = document.createElement("div");
-              musicCard.className = "music-card col-4";
+              musicCard.className = "music-card";
               musicCard.innerHTML = `
                   <img src="${song.Banner_location}" alt="${song.Musictitle}" onclick="playSong('${song.Audio_location}')"/>
                   <h5>${song.Musictitle}</h5>
