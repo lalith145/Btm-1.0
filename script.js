@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch data from the API using HTTPS
   fetch(
-    "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/getall"
+    "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/allsongs"
   )
     .then((response) => response.json())
     .then((data) => {
