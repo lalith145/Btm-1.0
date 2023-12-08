@@ -262,10 +262,12 @@
 
     function loadSong(song) {
         audio.src = song.Audio_location;
-        audio.play(); // Start playing the new song
+        audio.addEventListener("loadeddata", function() {
+        audio.play();
         updateSongDetails(song);
         updateSongCount();
         isPlaying = true;
+    });
     }
 
     function updateSongDetails(song) {
@@ -289,10 +291,17 @@
         isPlaying = !isPlaying;
     }
 
+    // function nextTrack() {
+    //     currentSongIndex = (currentSongIndex + 1) % songs.length;
+    //     loadSong(songs[currentSongIndex]);
+    // }
+
     function nextTrack() {
+        audio.pause(); // Pause the current song
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         loadSong(songs[currentSongIndex]);
     }
+
 
     function prevTrack() {
         currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
