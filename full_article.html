@@ -38,7 +38,7 @@
         <div id="articleContent"></div>
     </div>
     <script>
-        
+
         document.addEventListener("DOMContentLoaded", function () {
             const fullArticleContainer = document.getElementById("fullArticle");
             const articleContentContainer = document.getElementById("articleContent");
@@ -50,7 +50,7 @@
             async function fetchFullArticle() {
                 try {
                     const response = await fetch(
-                        `http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/article/byid/${articleId}`
+                        `http://15.207.196.141:8081/v1/article/byid/${articleId}`
                     );
                     const fullArticleData = await response.json();
 

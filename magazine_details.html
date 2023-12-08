@@ -43,7 +43,7 @@
         async function fetchFullMagazine() {
           try {
             const response = await fetch(
-              `http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/magazine/magazine/${magazineId}`
+              `${baseUrl}/magazine/magazine/${magazineId}`
             );
             const fullMagazineData = await response.json();
             console.log(fullMagazineData);

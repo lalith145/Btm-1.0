@@ -77,16 +77,14 @@
       
     </div>
     <script>
-      const baseUrl = "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1";
+      const baseUrl = "http://15.207.196.141:8081/v1";
 
       document.addEventListener("DOMContentLoaded", function () {
         const articleContainer = document.getElementById("articleContainer");
 
         async function fetchArticles() {
           try {
-            const response = await fetch(
-              "${baseUrl}/article/getall"
-            );
+            const response = await fetch(`${baseUrl}/article/getall`);
             const data = await response.json();
 
             if (Array.isArray(data) && data.length > 0) {

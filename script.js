@@ -1,4 +1,4 @@
-const baseUrl = "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1";
+const baseUrl = "http://15.207.196.141:8081/v1";
 
 // Banner
 
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch data from the API using HTTPS
-  fetch("${baseUrl}/audio/allsongs")
+  fetch(`${baseUrl}/audio/allsongs`)
       .then((response) => response.json())
       .then((data) => {
           // Process the data and create music cards
@@ -95,9 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function fetchArticles() {
     try {
-      const response = await fetch(
-        "${baseUrl}/article/getall"
-      );
+      const response = await fetch(`${baseUrl}/article/getall`);
       const data = await response.json();
 
       if (Array.isArray(data) && data.length > 0) {
@@ -157,12 +155,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function fetchMagazines() {
       try {
-          const response = await fetch("${baseUrl}/magazine/getall");
+          const response = await fetch(`${baseUrl}/magazine/getall`);
           const data = await response.json();
 
           if (Array.isArray(data) && data.length > 0) {
               renderMagazines(data);
           } else {
+
               console.error("No magazines found.");
           }
       } catch (error) {
@@ -213,9 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch data from the API using HTTPS
-  fetch(
-    "${baseUrl}/video/getall"
-  )
+  fetch(`${baseUrl}/video/getall`)
     .then((response) => response.json())
     .then((data) => {
       // Process the data and create music cards

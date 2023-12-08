@@ -64,64 +64,72 @@
     </div>
     <script>
 
-        const baseUrl = "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1";
+const baseUrl = "http://15.207.196.141:8081/v1";
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const magazineContainer = document.getElementById("magazineContainer");
+document.addEventListener("DOMContentLoaded", function () {
+    const magazineContainer = document.getElementById("magazineContainer");
 
-            async function fetchMagazines() {
-                try {
-                    const response = await fetch("${baseUrl}/magazine/getall");
-                    const data = await response.json();
+    // Directly define magazine data
+    const magazineData = [
+        {
+            _id: "65717b359b57daa90a362e8c",
+            MagazineTitle: "aqwertyui",
+            description: "helo world how are you",
+            Banner_location: "https://s3-btm.s3.ap-south-1.amazonaws.com/uploads/426214d8-63ef-4944-b191-858bd4dd7550-pexels-eberhard-grossgasteiger-691668.jpg",
+        },
+        {
+            _id: "6571a5258e4c52c5a137b5be",
+            MagazineTitle: "RAGAVA",
+            description: "HELLO",
+            Banner_location: "https://s3-btm.s3.ap-south-1.amazonaws.com/uploads/2a346515-96eb-43b1-b7d2-16a2eeab2189-_f2d8d29d-4612-4a09-b2f6-3c7c6511a8b1.jpeg",
+        },
+        {
+            _id: "6571af6e8e4c52c5a137b8bd",
+            MagazineTitle: "rtfuvgy",
+            description: "cruyivgubh",
+            Banner_location: "https://s3-btm.s3.ap-south-1.amazonaws.com/uploads/2a147be9-22e7-45ce-a86a-6544ec6ece37-download__4_.jpg",
+        },
+    ];
 
-                    if (Array.isArray(data) && data.length > 0) {
-                        renderMagazines(data);
-                    } else {
-                        console.error("No magazines found.");
-                    }
-                } catch (error) {
-                    console.error("Error fetching magazine data:", error);
-                }
-            }
+    // Render magazines using direct values
+    renderMagazines(magazineData);
 
-            function renderMagazines(magazines) {
-                magazineContainer.innerHTML = ""; // Clear previous content
+    function renderMagazines(magazines) {
+        magazineContainer.innerHTML = ""; // Clear previous content
 
-                magazines.forEach((magazine, index) => {
-                    const magazineDiv = document.createElement("div");
-                    magazineDiv.classList.add("magazine");
+        magazines.forEach((magazine, index) => {
+            const magazineDiv = document.createElement("div");
+            magazineDiv.classList.add("magazine");
 
-                    const titleElement = document.createElement("h2");
-                    titleElement.textContent = magazine.MagazineTitle;
+            const titleElement = document.createElement("h2");
+            titleElement.textContent = magazine.MagazineTitle;
 
-                    const descriptionElement = document.createElement("p");
-                    descriptionElement.textContent = magazine.description;
+            const descriptionElement = document.createElement("p");
+            descriptionElement.textContent = magazine.description;
 
-                    const bannerImage = document.createElement("img");
-                    bannerImage.src = magazine.Banner_location;
-                    bannerImage.alt = magazine.MagazineTitle;
+            const bannerImage = document.createElement("img");
+            bannerImage.src = magazine.Banner_location;
+            bannerImage.alt = magazine.MagazineTitle;
 
-                    magazineDiv.appendChild(bannerImage);
-                    magazineDiv.appendChild(titleElement);
-                    magazineDiv.appendChild(descriptionElement);
+            magazineDiv.appendChild(bannerImage);
+            magazineDiv.appendChild(titleElement);
+            magazineDiv.appendChild(descriptionElement);
 
-                    // Add click event listener to redirect to the magazine details
-                    magazineDiv.addEventListener("click", function () {
-                        redirectToMagazineDetails(magazine._id);
-                    });
+            // Add click event listener to redirect to the magazine details
+            magazineDiv.addEventListener("click", function () {
+                redirectToMagazineDetails(magazine._id);
+            });
 
-                    magazineContainer.appendChild(magazineDiv);
-                });
-            }
-
-            function redirectToMagazineDetails(magazineId) {
-                // Redirect to the magazine details view
-                window.location.href = `magazine_details.html?id=${magazineId}`;
-            }
-
-            // Fetch magazines from the API and render them
-            fetchMagazines();
+            magazineContainer.appendChild(magazineDiv);
         });
+    }
+
+    function redirectToMagazineDetails(magazineId) {
+        // Redirect to the magazine details view
+        window.location.href = `magazine_details.html?id=${magazineId}`;
+    }
+});
+
     </script>
 </body>
 </html>
