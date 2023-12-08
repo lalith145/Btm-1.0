@@ -11,6 +11,41 @@ body a {
   text-decoration: none;
 }
 
+
+.preloader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.logo-placeholder {
+  width: 100px; /* Adjust the size as needed */
+  height: auto;
+  margin-top: 20px; /* Adjust the margin as needed */
+}
+
+.content {
+  display: none;
+  /* Add styles for your main content */
+  padding: 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.actual-logo {
+  max-width: 200px; /* Adjust the size as needed */
+  height: auto;
+  margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
 header {
     position: sticky;
     top: 0%;
@@ -133,7 +168,7 @@ header {
   display: flex;
   justify-content: space-around;
   padding: 10px;
-  background-color: #eaeef2;
+  background-color:white;
 }
 
 .magazines-wrapper img{
@@ -192,5 +227,24 @@ body {
   font-size: 10px;
   font-weight: 300;
   word-wrap: break-word;
+}
+
+/* Footer */
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #080755;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#footer a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
 }
 

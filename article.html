@@ -104,5 +104,42 @@
         fetchArticles();
       });
     </script>
+<<<<<<< HEAD
   </body>
+=======
+
+<script>
+  function navigateToPage(page) {
+        switch (page) {
+            case 'index':
+                window.location.href = 'index.html';
+                break;
+            case 'music':
+                window.location.href = 'music-lists.html';
+                break;
+            case 'magazines':
+                window.location.href = 'magazines-lists.html';
+                break;
+            case 'articles':
+                window.location.href = 'article.html';
+                break;
+            case 'videos':
+                window.location.href = 'videos.html';
+                break;
+            default:
+                console.log("Unknown page: " + page);
+        }
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            document.querySelector(".preloader-wrapper").style.display = "none";
+            document.querySelector(".content").style.display = "block";
+        }, 2000); // Simulating a 2-second loading time
+    });
+</script>
+
+</body>
+>>>>>>> ad1ebe33ed8ab4e52009689405bcdb459a803355
 </html>
