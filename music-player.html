@@ -11,7 +11,7 @@
     <style>
         /* Add your custom styles here */
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: sans-serif;
             font-weight: bold; 
             
         }
@@ -218,14 +218,10 @@
                 </div>
             </div>
 
-            <div id="wave">
-                <span class="stroke"></span>
-                <span class="stroke"></span>
-                <span class="stroke"></span>
-                <span class="stroke"></span>
-                <span class="stroke"></span>
-                <span class="stroke"></span>
-                <span class="stroke"></span>
+            <div class="lyrics">
+                <p>
+                    Lyrics
+                </p>
             </div>
         </div>
     </div>
@@ -233,6 +229,7 @@
     <script>
        document.addEventListener("DOMContentLoaded", function () {
     const audio = new Audio();
+    const lyrics = document.querySelector(".lyrics");
     const playpause_btn = document.querySelector(".playpause-track");
     const trackArt = document.querySelector(".track-art");
     const nowPlaying = document.querySelector(".now-playing");
@@ -274,6 +271,7 @@
         trackArt.style.backgroundImage = `url('${song.Banner_location}')`;
         trackName.textContent = song.Musictitle;
         trackArtist.textContent = song.artist;
+        lyrics.innerHTML = song.
     }
 
     function updateSongCount() {
