@@ -1,4 +1,4 @@
-const baseUrl = "http://15.207.196.141:8081/v1";
+const baseUrl = "http://15.207.196.141:8080/v1";
 
 // Banner
 
@@ -63,23 +63,23 @@ document.addEventListener("DOMContentLoaded", async function () {
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch data from the API using HTTPS
   fetch(`${baseUrl}/audio/allsongs`)
-      .then((response) => response.json())
-      .then((data) => {
-          // Process the data and create music cards
-          const musicRow = document.getElementById("musicRow");
+    .then((response) => response.json())
+    .then((data) => {
+      // Process the data and create music cards
+      const musicRow = document.getElementById("musicRow");
 
-          data.getallsongs.forEach((song) => {
-              const musicCard = document.createElement("div");
-              musicCard.className = "music-card";
-              musicCard.innerHTML = `
+      data.getallsongs.forEach((song) => {
+        const musicCard = document.createElement("div");
+        musicCard.className = "music-card";
+        musicCard.innerHTML = `
                   <img src="${song.Banner_location}" alt="${song.Musictitle}" onclick="playSong('${song.Audio_location}')"/>
                   <h5>${song.Musictitle}</h5>
                   <p>${song.artist}</p>
               `;
-              musicRow.appendChild(musicCard);
-          });
-      })
-      .catch((error) => console.error("Error fetching music data:", error));
+        musicRow.appendChild(musicCard);
+      });
+    })
+    .catch((error) => console.error("Error fetching music data:", error));
 });
 
 function playSong(audioUrl) {
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const contentElement = document.createElement("p");
       contentElement.textContent = article.content;
 
-      
+
       articleDiv.appendChild(bannerImage);
       articleDiv.appendChild(titleElement);
       articleDiv.appendChild(contentElement);
@@ -154,54 +154,54 @@ document.addEventListener("DOMContentLoaded", function () {
   const magazineContainer = document.getElementById("magazineContainer");
 
   async function fetchMagazines() {
-      try {
-          const response = await fetch(`${baseUrl}/magazine/getall`);
-          const data = await response.json();
+    try {
+      const response = await fetch(`${baseUrl}/magazine/getall`);
+      const data = await response.json();
 
-          if (Array.isArray(data) && data.length > 0) {
-              renderMagazines(data);
-          } else {
+      if (Array.isArray(data) && data.length > 0) {
+        renderMagazines(data);
+      } else {
 
-              console.error("No magazines found.");
-          }
-      } catch (error) {
-          console.error("Error fetching magazine data:", error);
+        console.error("No magazines found.");
       }
+    } catch (error) {
+      console.error("Error fetching magazine data:", error);
+    }
   }
 
   function renderMagazines(magazines) {
-      magazineContainer.innerHTML = ""; // Clear previous content
+    magazineContainer.innerHTML = ""; // Clear previous content
 
-      magazines.forEach((magazine, index) => {
-          const magazineDiv = document.createElement("div");
-          magazineDiv.classList.add("magazine");
+    magazines.forEach((magazine, index) => {
+      const magazineDiv = document.createElement("div");
+      magazineDiv.classList.add("magazine");
 
-          const titleElement = document.createElement("h2");
-          titleElement.textContent = magazine.MagazineTitle;
+      const titleElement = document.createElement("h2");
+      titleElement.textContent = magazine.MagazineTitle;
 
-          const descriptionElement = document.createElement("p");
-          descriptionElement.textContent = magazine.description;
+      const descriptionElement = document.createElement("p");
+      descriptionElement.textContent = magazine.description;
 
-          const bannerImage = document.createElement("img");
-          bannerImage.src = magazine.Banner_location;
-          bannerImage.alt = magazine.MagazineTitle;
+      const bannerImage = document.createElement("img");
+      bannerImage.src = magazine.Banner_location;
+      bannerImage.alt = magazine.MagazineTitle;
 
-          magazineDiv.appendChild(bannerImage);
-          magazineDiv.appendChild(titleElement);
-          magazineDiv.appendChild(descriptionElement);
+      magazineDiv.appendChild(bannerImage);
+      magazineDiv.appendChild(titleElement);
+      magazineDiv.appendChild(descriptionElement);
 
-          // Add click event listener to redirect to the magazine details
-          magazineDiv.addEventListener("click", function () {
-              redirectToMagazineDetails(magazine._id);
-          });
-
-          magazineContainer.appendChild(magazineDiv);
+      // Add click event listener to redirect to the magazine details
+      magazineDiv.addEventListener("click", function () {
+        redirectToMagazineDetails(magazine._id);
       });
+
+      magazineContainer.appendChild(magazineDiv);
+    });
   }
 
   function redirectToMagazineDetails(magazineId) {
-      // Redirect to the magazine details view
-      window.location.href = `magazine_details.html?id=${magazineId}`;
+    // Redirect to the magazine details view
+    window.location.href = `magazine_details.html?id=${magazineId}`;
   }
 
   // Fetch magazines from the API and render them

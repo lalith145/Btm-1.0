@@ -143,7 +143,7 @@ function randomTrack(music_list) {
     // Generate a random index
     let randomIndex = Math.floor(Math.random() * music_list.length);
 
-    
+
     // Load and play the random track
     loadTrack(randomIndex, music_list);
     playTrack();

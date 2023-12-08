@@ -1,127 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
 
-        .magazine-container {
-           width: 100%;
-            gap: 20px;
-            justify-content: center;
-        }
+      .magazine-container {
+        width: 100%;
+        gap: 20px;
+        justify-content: center;
+      }
 
-        .magazine {
-            width: 100%;
-            border: 1px solid #ccc;
-            padding: 10px;
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out;
-        }
+      .magazine {
+        width: 100%;
+        border: 1px solid #ccc;
+        padding: 10px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
 
-        .magazine:hover {
-            transform: scale(1.05);
-        }
+      .magazine:hover {
+        transform: scale(1.05);
+      }
 
-        .magazine img {
-            border-radius: 20px;
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
+      .magazine img {
+        border-radius: 20px;
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
 
-        .magazine h2 {
-            margin-bottom: 10px;
-        }
+      .magazine h2 {
+        margin-bottom: 10px;
+      }
     </style>
     <title>Magazine Viewer</title>
-</head>
-<body>
+  </head>
+  <body>
     <div>
-        <a href="index.html">
-         <h5>
-           <svg
-             xmlns="http://www.w3.org/2000/svg"
-             height="0.75em"
-             viewBox="0 0 448 512"
-           >
-             <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-             <path
-               d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-             />
-           </svg>
-           Magazines
-         </h5>
-        </a>
-       </div>
-
-    <div class="magazine-container" id="magazineContainer">
+      <a href="index.html">
+        <h5>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="0.75em"
+            viewBox="0 0 448 512"
+          >
+            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+              d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+            />
+          </svg>
+          Magazines
+        </h5>
+      </a>
     </div>
+
+    <div class="magazine-container" id="magazineContainer"></div>
     <script>
+      const baseUrl = "http://15.207.196.141:8080/v1";
 
-const baseUrl = "http://15.207.196.141:8081/v1";
+      document.addEventListener("DOMContentLoaded", function () {
+        const magazineContainer = document.getElementById("magazineContainer");
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const magazineContainer = document.getElementById("magazineContainer");
+        async function fetchMagazines() {
+          try {
+            const response = await fetch("${baseUrl}/magazine/getall");
+            const data = await response.json();
 
-            async function fetchMagazines() {
-                try {
-                    const response = await fetch("${baseUrl}/magazine/getall");
-                    const data = await response.json();
-
-                    if (Array.isArray(data) && data.length > 0) {
-                        renderMagazines(data);
-                    } else {
-                        console.error("No magazines found.");
-                    }
-                } catch (error) {
-                    console.error("Error fetching magazine data:", error);
-                }
+            if (Array.isArray(data) && data.length > 0) {
+              renderMagazines(data);
+            } else {
+              console.error("No magazines found.");
             }
+          } catch (error) {
+            console.error("Error fetching magazine data:", error);
+          }
+        }
 
-            function renderMagazines(magazines) {
-                magazineContainer.innerHTML = ""; // Clear previous content
+        function renderMagazines(magazines) {
+          magazineContainer.innerHTML = ""; // Clear previous content
 
-                magazines.forEach((magazine, index) => {
-                    const magazineDiv = document.createElement("div");
-                    magazineDiv.classList.add("magazine");
+          magazines.forEach((magazine, index) => {
+            const magazineDiv = document.createElement("div");
+            magazineDiv.classList.add("magazine");
 
-                    const titleElement = document.createElement("h2");
-                    titleElement.textContent = magazine.MagazineTitle;
+            const titleElement = document.createElement("h2");
+            titleElement.textContent = magazine.MagazineTitle;
 
-                    const descriptionElement = document.createElement("p");
-                    descriptionElement.textContent = magazine.description;
+            const descriptionElement = document.createElement("p");
+            descriptionElement.textContent = magazine.description;
 
-                    const bannerImage = document.createElement("img");
-                    bannerImage.src = magazine.Banner_location;
-                    bannerImage.alt = magazine.MagazineTitle;
+            const bannerImage = document.createElement("img");
+            bannerImage.src = magazine.Banner_location;
+            bannerImage.alt = magazine.MagazineTitle;
 
-                    magazineDiv.appendChild(bannerImage);
-                    magazineDiv.appendChild(titleElement);
-                    magazineDiv.appendChild(descriptionElement);
+            magazineDiv.appendChild(bannerImage);
+            magazineDiv.appendChild(titleElement);
+            magazineDiv.appendChild(descriptionElement);
 
-                    // Add click event listener to redirect to the magazine details
-                    magazineDiv.addEventListener("click", function () {
-                        redirectToMagazineDetails(magazine._id);
-                    });
+            // Add click event listener to redirect to the magazine details
+            magazineDiv.addEventListener("click", function () {
+              redirectToMagazineDetails(magazine._id);
+            });
 
-                    magazineContainer.appendChild(magazineDiv);
-                });
-            }
+            magazineContainer.appendChild(magazineDiv);
+          });
+        }
 
-            function redirectToMagazineDetails(magazineId) {
-                // Redirect to the magazine details view
-                window.location.href = `magazine_details.html?id=${magazineId}`;
-            }
+        function redirectToMagazineDetails(magazineId) {
+          // Redirect to the magazine details view
+          window.location.href = `magazine_details.html?id=${magazineId}`;
+        }
 
-            // Fetch magazines from the API and render them
-            fetchMagazines();
-        });
+        // Fetch magazines from the API and render them
+        fetchMagazines();
+      });
     </script>
-</body>
+  </body>
 </html>

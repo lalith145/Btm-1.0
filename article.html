@@ -18,9 +18,8 @@
       }
 
       .article {
-
         /* max-width: 300px; */
-        width:100%;
+        width: 100%;
         border: 1px solid #ccc;
         border-radius: 20px;
         padding: 10px;
@@ -28,15 +27,16 @@
         transition: transform 0.2s ease-in-out;
         height: auto;
       }
+      
 
       .article:hover {
         transform: scale(1.05);
       }
 
       .article img {
-       width: 100%;
-       border-radius: 20px;
-        height:30vh;
+        width: 100%;
+        border-radius: 20px;
+        height: 30vh;
         margin-bottom: 10px;
       }
 
@@ -44,40 +44,33 @@
         margin-bottom: 10px;
       }
 
-      #articleContainer{
+      #articleContainer {
         width: 100vw;
-        
       }
-
-
-
     </style>
     <title>Article Viewer</title>
   </head>
   <body>
-
     <div>
       <a href="index.html">
-       <h5>
-         <svg
-           xmlns="http://www.w3.org/2000/svg"
-           height="0.75em"
-           viewBox="0 0 448 512"
-         >
-           <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-           <path
-             d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-           />
-         </svg>
-         Articles
-       </h5>
+        <h5>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="0.75em"
+            viewBox="0 0 448 512"
+          >
+            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+              d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+            />
+          </svg>
+          Articles
+        </h5>
       </a>
-     </div>
-    <div class="article-container" id="articleContainer">
-      
     </div>
+    <div class="article-container" id="articleContainer"></div>
     <script>
-      const baseUrl = "http://15.207.196.141:8081/v1";
+      const baseUrl = "http://15.207.196.141:8080/v1";
 
       document.addEventListener("DOMContentLoaded", function () {
         const articleContainer = document.getElementById("articleContainer");
@@ -114,7 +107,6 @@
             const contentElement = document.createElement("p");
             contentElement.textContent = article.content;
 
-
             articleDiv.appendChild(bannerImage);
             articleDiv.appendChild(titleElement);
             articleDiv.appendChild(contentElement);
@@ -138,37 +130,36 @@
       });
     </script>
 
-<script>
-  function navigateToPage(page) {
+    <script>
+      function navigateToPage(page) {
         switch (page) {
-            case 'index':
-                window.location.href = 'index.html';
-                break;
-            case 'music':
-                window.location.href = 'music-lists.html';
-                break;
-            case 'magazines':
-                window.location.href = 'magazines-lists.html';
-                break;
-            case 'articles':
-                window.location.href = 'article.html';
-                break;
-            case 'videos':
-                window.location.href = 'videos.html';
-                break;
-            default:
-                console.log("Unknown page: " + page);
+          case "index":
+            window.location.href = "index.html";
+            break;
+          case "music":
+            window.location.href = "music-lists.html";
+            break;
+          case "magazines":
+            window.location.href = "magazines-lists.html";
+            break;
+          case "articles":
+            window.location.href = "article.html";
+            break;
+          case "videos":
+            window.location.href = "videos.html";
+            break;
+          default:
+            console.log("Unknown page: " + page);
         }
-    }
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
         setTimeout(function () {
-            document.querySelector(".preloader-wrapper").style.display = "none";
-            document.querySelector(".content").style.display = "block";
+          document.querySelector(".preloader-wrapper").style.display = "none";
+          document.querySelector(".content").style.display = "block";
         }, 2000); // Simulating a 2-second loading time
-    });
-</script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>
