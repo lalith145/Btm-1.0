@@ -62,27 +62,31 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch data from the API using HTTPS
-  fetch(
-    "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/allsongs"
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      // Process the data and create music cards
-      const musicRow = document.getElementById("musicRow");
+  fetch("http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/allsongs")
+      .then((response) => response.json())
+      .then((data) => {
+          // Process the data and create music cards
+          const musicRow = document.getElementById("musicRow");
 
-      data.getallsongs.forEach((song) => {
-        const musicCard = document.createElement("div");
-        musicCard.className = "music-card col-4";
-        musicCard.innerHTML = `
-            <img src="${song.Banner_location}" alt="${song.Musictitle}" />
-            <h5>${song.Musictitle}</h5>
-            <p>${song.artist}</p>
-          `;
-        musicRow.appendChild(musicCard);
-      });
-    })
-    .catch((error) => console.error("Error fetching music data:", error));
+          data.getallsongs.forEach((song) => {
+              const musicCard = document.createElement("div");
+              musicCard.className = "music-card col-4";
+              musicCard.innerHTML = `
+                  <img src="${song.Banner_location}" alt="${song.Musictitle}" onclick="playSong('${song.Audio_location}')"/>
+                  <h5>${song.Musictitle}</h5>
+                  <p>${song.artist}</p>
+              `;
+              musicRow.appendChild(musicCard);
+          });
+      })
+      .catch((error) => console.error("Error fetching music data:", error));
 });
+
+function playSong(audioUrl) {
+  // Open the music player page and pass the audio URL
+  window.location.href = `music-player.html?audioUrl=${encodeURIComponent(audioUrl)}`;
+}
+
 
 // Articles
 

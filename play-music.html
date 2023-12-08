@@ -67,105 +67,75 @@
     </div>
     <script src="play-music.js" defer></script>
     <script>
-       document.addEventListener("DOMContentLoaded", function () {
-    const audio = new Audio();
-    const playpause_btn = document.querySelector(".playpause-track");
-    const trackArt = document.querySelector(".track-art");
-    const nowPlaying = document.querySelector(".now-playing");
-    const trackName = document.querySelector(".track-name");
-    const trackArtist = document.querySelector(".track-artist");
-    const seekSlider = document.querySelector(".seek_slider");
-    const volumeSlider = document.querySelector(".volume_slider");
-    let isPlaying = false;
-    let currentSongIndex = 0;
-    let songs = [];
+        document.addEventListener("DOMContentLoaded", function () {
+            const audio = new Audio();
+            const playpause_btn = document.querySelector(".playpause-track");
+            const trackArt = document.querySelector(".track-art");
+            const nowPlaying = document.querySelector(".now-playing");
+            const trackName = document.querySelector(".track-name");
+            const trackArtist = document.querySelector(".track-artist");
+            const seekSlider = document.querySelector(".seek_slider");
+            const volumeSlider = document.querySelector(".volume_slider");
+            let isPlaying = false;
 
-    async function fetchAllSongs() {
-        try {
-            const response = await fetch("http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/allsongs");
-            const data = await response.json();
+            // Extract audio URL from the query parameters
+            const params = new URLSearchParams(window.location.search);
+            const audioUrl = params.get("audioUrl");
 
-            if (data.success === "Fetched songs") {
-                songs = data.getallsongs;
-                loadSong(songs[currentSongIndex]);
-            } else {
-                console.error("Error fetching songs:", data.message);
+            // Load the specified song
+            loadSong(audioUrl);
+
+            function loadSong(audioUrl) {
+                audio.src = audioUrl;
+                audio.play(); // Start playing the new song
+                updateSongDetails();
+                isPlaying = true;
             }
-        } catch (error) {
-            console.error("Error fetching song data:", error);
-        }
-    }
 
-    function loadSong(song) {
-        audio.src = song.Audio_location;
-        audio.play(); // Start playing the new song
-        updateSongDetails(song);
-        updateSongCount();
-        isPlaying = true;
-    }
+            function updateSongDetails() {
+                // Update the song details based on your logic
+                // For example, you can set trackName.textContent and trackArtist.textContent here
+            }
 
-    function updateSongDetails(song) {
-        trackArt.style.backgroundImage = `url('${song.Banner_location}')`;
-        trackName.textContent = song.Musictitle;
-        trackArtist.textContent = song.artist;
-    }
+            function playpauseTrack() {
+                if (isPlaying) {
+                    audio.pause();
+                    playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
+                } else {
+                    audio.play();
+                    playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
+                }
+                isPlaying = !isPlaying;
+            }
 
-    function updateSongCount() {
-        nowPlaying.textContent = `PLAYING ${currentSongIndex + 1} OF ${songs.length}`;
-    }
+            function seekTo() {
+                const seekto = audio.duration * (seekSlider.value / 100);
+                audio.currentTime = seekto;
+            }
 
-    function playpauseTrack() {
-        if (isPlaying) {
-            audio.pause();
-            
-            playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
-        } else {
-            audio.play();
-            playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
-        }
-        isPlaying = !isPlaying;
-    }
+            function setVolume() {
+                audio.volume = volumeSlider.value / 100;
+            }
 
-    function nextTrack() {
-        currentSongIndex = (currentSongIndex + 1) % songs.length;
-        loadSong(songs[currentSongIndex]);
-    }
+            // Event listeners for buttons and sliders
+            audio.addEventListener("timeupdate", function () {
+                const position = audio.currentTime / audio.duration;
+                seekSlider.value = position * 100;
+            });
 
-    function prevTrack() {
-        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-        loadSong(songs[currentSongIndex]);
-    }
+            audio.addEventListener("ended", function () {
+                // Handle the end of the song, for example, go back to the music list
+                window.location.href = "music-list.html";
+            });
 
-    function seekTo() {
-        const seekto = audio.duration * (seekSlider.value / 100);
-        audio.currentTime = seekto;
-    }
+            // Add click event listeners to control buttons
+            document.querySelector(".playpause-track").addEventListener("click", playpauseTrack);
 
-    function setVolume() {
-        audio.volume = volumeSlider.value / 100;
-    }
-
-    // Event listeners for buttons and sliders
-    audio.addEventListener("timeupdate", function () {
-        const position = audio.currentTime / audio.duration;
-        seekSlider.value = position * 100;
-    });
-
-    audio.addEventListener("ended", function () {
-        nextTrack();
-    });
-
-    fetchAllSongs(); // Fetch songs when the page loads
-
-    // Add click event listeners to control buttons
-    document.querySelector(".playpause-track").addEventListener("click", playpauseTrack);
-    document.querySelector(".next-track").addEventListener("click", nextTrack);
-    document.querySelector(".prev-track").addEventListener("click", prevTrack);
-
-    // Add input event listeners to sliders
-    seekSlider.addEventListener("input", seekTo);
-    volumeSlider.addEventListener("input", setVolume);
-});
+            // Add input event listeners to sliders
+            seekSlider.addEventListener("input", seekTo);
+            volumeSlider.addEventListener("input", setVolume);
+        });
     </script>
+
 </body>
 </html>
