@@ -143,9 +143,7 @@ header {
     padding: 10px;
 }
 
-.music-card{
 
-}
 
 .music-card img {
     width: 100px;
@@ -246,5 +244,42 @@ body {
   color: white;
   margin: 0 10px;
   text-decoration: none;
+}
+
+
+/* Index Articles Wrapper */
+
+#articleContainer article{
+  height:auto;
+}
+
+#articleContainer img {
+  border-radius: 20px;
+  height : 100px;
+  width:100px;
+}
+
+#articleContainer p{
+
+font-size: 10px;
+
+}
+
+/* Index Magaxine Wrapper */
+
+#magazineContainer article{
+  height:auto;
+}
+
+#magazineContainer img {
+  border-radius: 20px;
+  height : 100px;
+  width:100px;
+}
+
+#magazineContainer p{
+
+font-size: 10px;
+
 }
 

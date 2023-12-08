@@ -18,8 +18,11 @@
       }
 
       .article {
-        max-width: 300px;
+
+        /* max-width: 300px; */
+        width:100%;
         border: 1px solid #ccc;
+        border-radius: 20px;
         padding: 10px;
         cursor: pointer;
         transition: transform 0.2s ease-in-out;
@@ -31,19 +34,48 @@
       }
 
       .article img {
-        max-width: 100%;
-        height: auto;
+       width: 100%;
+       border-radius: 20px;
+        height:30vh;
         margin-bottom: 10px;
       }
 
       .article h2 {
         margin-bottom: 10px;
       }
+
+      #articleContainer{
+        width: 100vw;
+        
+      }
+
+
+
     </style>
     <title>Article Viewer</title>
   </head>
   <body>
-    <div class="article-container" id="articleContainer"></div>
+
+    <div>
+      <a href="index.html">
+       <h5>
+         <svg
+           xmlns="http://www.w3.org/2000/svg"
+           height="0.75em"
+           viewBox="0 0 448 512"
+         >
+           <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+           <path
+             d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+           />
+         </svg>
+         Articles
+       </h5>
+      </a>
+     </div>
+    <div class="article-container" id="articleContainer">
+      
+    </div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const articleContainer = document.getElementById("articleContainer");
@@ -82,8 +114,9 @@
             const contentElement = document.createElement("p");
             contentElement.textContent = article.content;
 
-            articleDiv.appendChild(titleElement);
+
             articleDiv.appendChild(bannerImage);
+            articleDiv.appendChild(titleElement);
             articleDiv.appendChild(contentElement);
 
             // Add click event listener to redirect to the full article
@@ -104,9 +137,6 @@
         fetchArticles();
       });
     </script>
-<<<<<<< HEAD
-  </body>
-=======
 
 <script>
   function navigateToPage(page) {
@@ -141,5 +171,4 @@
 </script>
 
 </body>
->>>>>>> ad1ebe33ed8ab4e52009689405bcdb459a803355
 </html>
