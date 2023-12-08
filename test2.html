@@ -108,6 +108,8 @@
       }
     }
 
+    const baseUrl = "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1";
+
     document.addEventListener("DOMContentLoaded", function () {
       setTimeout(function () {
         document.querySelector(".preloader-wrapper").style.display = "none";
@@ -116,7 +118,7 @@
     });
 
     // Fetch data from the API
-    fetch('http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/allsongs')
+    fetch('${baseUrl}/audio/allsongs')
       .then(response => response.json())
       .then(data => {
         // Get the container element in your HTML where you want to append the data

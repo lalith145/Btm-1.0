@@ -63,12 +63,15 @@
     <div class="magazine-container" id="magazineContainer">
     </div>
     <script>
+
+        const baseUrl = "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1";
+
         document.addEventListener("DOMContentLoaded", function () {
             const magazineContainer = document.getElementById("magazineContainer");
 
             async function fetchMagazines() {
                 try {
-                    const response = await fetch("http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/magazine/getall");
+                    const response = await fetch("${baseUrl}/magazine/getall");
                     const data = await response.json();
 
                     if (Array.isArray(data) && data.length > 0) {

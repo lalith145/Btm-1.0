@@ -1,10 +1,10 @@
+const baseUrl = "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1";
+
 // Banner
 
 async function fetchBannerData() {
   try {
-    const response = await fetch(
-      "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/banner/getall"
-    );
+    const response = await fetch(`${baseUrl}/banner/getall`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch data from the API using HTTPS
-  fetch("http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/audio/allsongs")
+  fetch("${baseUrl}/audio/allsongs")
       .then((response) => response.json())
       .then((data) => {
           // Process the data and create music cards
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
   async function fetchArticles() {
     try {
       const response = await fetch(
-        "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/article/getall"
+        "${baseUrl}/article/getall"
       );
       const data = await response.json();
 
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function fetchMagazines() {
       try {
-          const response = await fetch("http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/magazine/getall");
+          const response = await fetch("${baseUrl}/magazine/getall");
           const data = await response.json();
 
           if (Array.isArray(data) && data.length > 0) {
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch data from the API using HTTPS
   fetch(
-    "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/video/getall"
+    "${baseUrl}/video/getall"
   )
     .then((response) => response.json())
     .then((data) => {

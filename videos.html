@@ -112,6 +112,7 @@
         }
     </script>
     <script>
+      const baseUrl = "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1";
         document.addEventListener("DOMContentLoaded", function () {
             setTimeout(function () {
                 document.querySelector(".preloader-wrapper").style.display = "none";
@@ -126,7 +127,7 @@
 
         // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint
         const apiUrl =
-          "http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/video/getall";
+          "${baseUrl}/video/getall";
 
         // Fetch data from the API
         fetch(apiUrl)
