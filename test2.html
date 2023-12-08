@@ -16,15 +16,11 @@
                 <i class="ri-menu-2-line" style="color: black"></i>
             </div>
             <div class="logo" style="padding-right: 10px">
-                <i class="ri-search-line" style="color: black" onclick="toggleSearch()"></i>
+                <i class="ri-search-line" style="color: black; cursor: pointer;" onclick="performSearch()"></i>
             </div>
         </div>
 
-        <!-- Add the search bar -->
-        <div class="search-bar" id="searchBar" style="display: none">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button onclick="performSearch()">Search</button>
-        </div>
+        <!-- Your existing content -->
 
         <div class="sidebar" id="sidebar">
             <!-- Your existing sidebar content -->
@@ -34,19 +30,14 @@
     <!-- Your existing content -->
 
     <script>
-        function toggleSearch() {
-            const searchBar = document.getElementById('searchBar');
-            searchBar.style.display = (searchBar.style.display === 'none' || searchBar.style.display === '') ? 'flex' : 'none';
-        }
-
         function performSearch() {
-            const searchInput = document.getElementById('searchInput').value;
+            const searchTerm = prompt('Enter your search term:');
 
-            // Check if the search input is not empty
-            if (searchInput.trim() !== '') {
+            // Check if the search term is not empty
+            if (searchTerm && searchTerm.trim() !== '') {
                 // Make an AJAX request to the search API
                 $.ajax({
-                    url: `http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/search/${encodeURIComponent(searchInput)}`,
+                    url: `http://ec2-13-233-129-161.ap-south-1.compute.amazonaws.com:8080/v1/search/${encodeURIComponent(searchTerm)}`,
                     method: 'GET',
                     success: function (data) {
                         // Handle the search results (you can redirect or display results as needed)
@@ -57,6 +48,10 @@
                     }
                 });
             }
+        }
+
+        function toggleSidebar() {
+            // Implement your sidebar toggle logic here
         }
     </script>
 </body>
